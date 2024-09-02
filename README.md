@@ -12,7 +12,7 @@ Créez un fichier `Dockerfile` à la racine de votre application React. Ce fichi
 
 ```Dockerfile
 # Utiliser l'image de base officielle de Node.js
-FROM node:18 as build
+FROM node:alpine as build
 
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
@@ -33,7 +33,7 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copier l'application React construite dans le répertoire du serveur web Nginx
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/dist /usr/share/nginx/html
 
 # Exposer le port 80 pour le serveur Nginx
 EXPOSE 80
